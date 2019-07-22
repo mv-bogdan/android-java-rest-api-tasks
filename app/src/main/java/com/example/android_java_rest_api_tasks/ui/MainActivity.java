@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.android_java_rest_api_tasks.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -68,13 +71,13 @@ public class MainActivity extends AppCompatActivity implements RealmAdapter.OnCl
             switch (item.getItemId()) {
                 case R.id.navigation_active_tasks:
                     CurrentBottomMenuElement = 0;
-                    realmAdapter.onChangeCurrentBottomMenu();
-                    setupAdapter();
+                    //realmAdapter.onChangeCurrentBottomMenu();
+                    //setupAdapter();
                     return true;
                 case R.id.navigation_completed_tasks:
                     CurrentBottomMenuElement = 1;
-                    realmAdapter.onChangeCurrentBottomMenu();
-                    setupAdapter();
+                    //realmAdapter.onChangeCurrentBottomMenu();
+                    //setupAdapter();
                     return true;
             }
             return false;
