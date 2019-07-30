@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android_java_rest_api_tasks.R;
+import com.example.android_java_rest_api_tasks.adapters.TasksAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements RealmAdapter.OnCl
     @BindView(R.id.nav_view)
     BottomNavigationView navView;
 
-    private RealmAdapter realmAdapter;
+    private TasksAdapter tasksAdapter;
 
     private int CurrentBottomMenuElement;
 
@@ -86,12 +87,12 @@ public class MainActivity extends AppCompatActivity implements RealmAdapter.OnCl
 
     private void setupAdapter() {
         if (CurrentBottomMenuElement == 0) {
-            realmAdapter = new RealmAdapter(this, new RealmController(this).getActiveTasks());
+            tasksAdapter = new TasksAdapter(this, new RealmController(this).getActiveTasks());
         } else if (CurrentBottomMenuElement == 1) {
-            realmAdapter = new RealmAdapter(this, new RealmController(this).getCompletedTasks());
+            tasksAdapter = new TasksAdapter(this, new RealmController(this).getCompletedTasks());
         }
-        realmAdapter.setOnClickListener(this);
-        recyclerView.setAdapter(realmAdapter);
+        tasksAdapter.setOnClickListener(this);
+        recyclerView.setAdapter(tasksAdapter);
     }
 
     @Override
