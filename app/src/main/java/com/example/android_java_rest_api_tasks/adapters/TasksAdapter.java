@@ -1,8 +1,6 @@
 package com.example.android_java_rest_api_tasks.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,29 +9,34 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android_java_rest_api_tasks.R;
-import com.example.android_java_rest_api_tasks.db.TasksModel;
+import com.example.android_java_rest_api_tasks.models.TaskModel;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-//public class TasksAdapter extends RealmBaseAdapter<TasksModel> {
+//public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ApiHolder> {
 //
 //    private OnClickListener onClickListener;
 //
-//    public TasksAdapter(Context context, RealmResults<TasksModel> realmResults) {
-//        super(context, realmResults, true);
+//    private List<TaskModel> tasksList;
+//
+//    private Context context;
+//
+//    public TasksAdapter(List<TaskModel> tasksList, Context context) {
+//        this.tasksList = tasksList;
+//        this.context = context;
+//    }
+//
+//    public TasksAdapter() {
+//
 //    }
 //
 //    @SuppressLint("ViewHolder")
-//    @Override
 //    public View getView(final int position, View convertView, ViewGroup parent) {
 //
 //        final TasksModel model = getRealmResults().get(position);
@@ -146,12 +149,12 @@ import butterknife.ButterKnife;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ApiHolder> {
 
-    private List<TasksAdapter> productsList;
+    private List<TaskModel> tasksList;
 
     private Context context;
 
-    public TasksAdapter(List<TasksAdapter> productsList, Context context) {
-        this.productsList = productsList;
+    public TasksAdapter(List<TaskModel> tasksList, Context context) {
+        this.tasksList = tasksList;
         this.context = context;
     }
 
@@ -160,7 +163,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ApiHolder> {
     }
 
     @Override
-    public ApiHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TasksAdapter.ApiHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.active_task_layout, parent,false);
         ApiHolder mh = new ApiHolder(v);
         return mh;
@@ -169,34 +172,35 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ApiHolder> {
     @Override
     public void onBindViewHolder(ApiHolder holder, int position) {
 
-        final TasksAdapter item = productsList.get(position);
+        final TaskModel item = tasksList.get(position);
 
-        holder.tTitle.setText(item.getName());
-        holder.tColor.setText(item.getColor());
-        holder.tIdProduct.setText(item.getPantoneValue());
+        holder.title.setText(item.getTitle());
+        holder.date.setText(item.getDateComplete());
 
     }
 
     @Override
     public int getItemCount() {
-        return productsList.size();
+        return tasksList.size();
     }
 
     public class ApiHolder extends RecyclerView.ViewHolder {
 
-        CardView cv;
-        TextView tTitle;
-        TextView tColor;
-        TextView    tIdProduct;
+        @BindView(R.id.title)
+        TextView title;
 
-        public ApiHolder(View v) {
-            super(v);
+        @BindView(R.id.dateComplete)
+        TextView date;
 
-            cv = itemView.findViewById(R.id.cv);
-            tTitle = v.findViewById(R.id.tTitle);
-            tColor = v.findViewById(R.id.tColor);
-            tIdProduct = v.findViewById(R.id.tIdProduct);
+        @BindView(R.id.TaskLayout)
+        LinearLayout TaskLayout;
 
+        @BindView(R.id.buttonComplete)
+        Button buttonComplete;
+
+        public ApiHolder(final View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
